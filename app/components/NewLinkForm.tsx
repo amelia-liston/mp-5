@@ -10,7 +10,9 @@ export default function NewLinkForm(){
     const [alias, setAlias] = useState("");
     return(
         <>
-            <form onSubmit={(e)=>{
+            <form
+                style={{width: "60%", margin: "0 auto"}}
+                onSubmit={(e)=>{
                 e.preventDefault();
                 createNewLink(url, alias)
                     .catch((err)=>console.log(err));
@@ -18,7 +20,7 @@ export default function NewLinkForm(){
                 <TextField
                     variant="filled"
                     sx={{backgroundColor: "white", width: "100%"}}
-                    label="Title"
+                    label="https://example.com/very/long/url"
                     value={url}
                     onChange={(e)=> setUrl(e.target.value)}
                 />
@@ -30,14 +32,13 @@ export default function NewLinkForm(){
                         borderRadius: 0,
                     }}
                     variant="soft"
-                    placeholder="Content"
+                    placeholder="your-custom-alias"
                     value={alias}
                     onChange={(e)=> setAlias(e.target.value)}
                 />
-                <FormHelperText>What&apos;s on your mind?</FormHelperText>
                 <div>
-                    <Button type="submit" variant="contained" sx={{width: "80px"}}>
-                        Create
+                    <Button type="submit" variant="contained" sx={{width: "100%"}}>
+                        Shorten
                     </Button>
                 </div>
             </form>

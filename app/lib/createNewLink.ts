@@ -7,18 +7,18 @@ export default async function createNewLink(
     alias: string,
 ): Promise<LinkProps> {
     console.log("Creating new post...");
-    const p = {
+    const u = {
         url: url,
         alias: alias,
     };
     //insert into db
     const postsCollection = await getCollection(LINKS_COLLECTION);
-    const res = await postsCollection.insertOne({...p});
+    const res = await postsCollection.insertOne({...u});
 
     if(!res.acknowledged){
         throw new Error("DB insert failed");
     }
 
 
-    return {...p, alias: res.insertedId.toHexString()};//likely need to fix
+    return {...u, alias: res.insertedId.toHexString()};//likely need to fix
 }
