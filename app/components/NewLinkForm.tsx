@@ -1,10 +1,11 @@
+"use client";
 import { Textarea } from "@mui/joy";
 import { Button, FormHelperText, TextField } from "@mui/material";
 import { useState } from "react";
 import { LinkProps } from "@/types";
 import createNewLink from "@/app/lib/createNewLink";
 
-export default function NewLinkForm({append, }:{append:(newPost:LinkProps)=>void;}){
+export default function NewLinkForm(){
     const [url, setUrl] = useState("");
     const [alias, setAlias] = useState("");
     return(
@@ -12,7 +13,6 @@ export default function NewLinkForm({append, }:{append:(newPost:LinkProps)=>void
             <form onSubmit={(e)=>{
                 e.preventDefault();
                 createNewLink(url, alias)
-                    .then((u)=> append(u))
                     .catch((err)=>console.log(err));
             }}>
                 <TextField
