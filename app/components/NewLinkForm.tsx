@@ -26,6 +26,7 @@ export default function NewLinkForm(){
                     setErrorMessage("");
                 }
                 }}>
+                <h2 className="text-xl mt-2 mb-2">URL</h2>
                 <TextField
                     variant="filled"
                     sx={{backgroundColor: "white", width: "100%"}}
@@ -33,6 +34,7 @@ export default function NewLinkForm(){
                     value={url}
                     onChange={(e)=> setUrl(e.target.value)}
                 />
+                <h2 className="text-xl mt-2 mb-2">Custom Alias</h2>
                 <Textarea
                     sx={{
                         padding: "0.5rem",
