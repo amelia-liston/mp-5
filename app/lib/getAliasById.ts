@@ -1,21 +1,21 @@
 import getCollection, {LINKS_COLLECTION} from "@/db";
-import { ObjectId } from "mongodb";
 import { LinkProps } from "@/types";
 
 export default async function getAliasById(
-    id: string,
+    alias: string,
 ): Promise<LinkProps | null> {
-    const postId = ObjectId.createFromHexString(id);
 
     const linksCollection = await getCollection(LINKS_COLLECTION);
-    const data = await linksCollection.findOne({ _id: postId });
+    const data = await linksCollection.findOne({ alias: alias });
 
     if(data === null){
         return null;
     }
 
+    const hexId = data._id.toHexString();
+
     const url = {
-        id: id,
+        id: hexId,
         alias: data.alias,
         url: data.url,
     };

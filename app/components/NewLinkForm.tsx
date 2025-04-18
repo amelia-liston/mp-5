@@ -8,14 +8,15 @@ import createNewLink from "@/app/lib/createNewLink";
 export default function NewLinkForm(){
     const [url, setUrl] = useState("");
     const [alias, setAlias] = useState("");
-    const [newUrl, setNewUrl] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [linkProp, setLinkProps] = useState<LinkProps>();
     return(
         <>
             <form
                 style={{width: "60%", margin: "0 auto"}}
-                onSubmit={(e)=>{
+                onSubmit={async (e)=>{
                 e.preventDefault();
-                createNewLink(url, alias)
+                await createNewLink(url, alias)
                     .catch((err)=>console.log(err));
             }}>
                 <TextField
@@ -43,11 +44,11 @@ export default function NewLinkForm(){
                     </Button>
                 </div>
             </form>
-            { newUrl === "" && (
-                <div>
-                    <p>${newUrl.toString()}</p>
-                </div>
-            )}
+            {/*{ alias === "" && (*/}
+            {/*    <div>*/}
+            {/*        <p>${alias.toString()}</p>*/}
+            {/*    </div>*/}
+            {/*)}*/}
         </>
     )
 }
