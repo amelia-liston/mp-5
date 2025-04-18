@@ -11,11 +11,16 @@ export default async function createNewLink(
         url: url,
         alias: alias,
     };
-    const urlRes = await fetch(url);
-    if (!urlRes.ok) {
-        //throw new Error(`Response status: ${urlRes.status}`);
-        return "Invalid URL";
-    } else if (urlRes.status >= 400) {
+    try {
+        const urlRes = await fetch(url);
+        if (!urlRes.ok) {
+            return "Invalid URL";
+        } else if (urlRes.status >= 400) {
+            return "Invalid URL";
+        }
+
+    } catch(err) {
+        console.log(err);
         return "Invalid URL";
     }
 

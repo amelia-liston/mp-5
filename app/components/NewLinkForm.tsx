@@ -16,9 +16,16 @@ export default function NewLinkForm(){
                 style={{width: "60%", margin: "0 auto"}}
                 onSubmit={async (e)=>{
                 e.preventDefault();
-                await createNewLink(url, alias)
-                    .catch((err)=>console.log(err));
-            }}>
+                const res = await createNewLink(url, alias);
+                if (typeof res == 'string' && res === "Invalid URL") {
+                    setErrorMessage("Invalid URL, please try again with a new URL");
+                } else if (typeof res == 'string' && res === "This alias already exists") {
+                    setErrorMessage(res);
+                } else if (typeof res !== 'string') {
+                    setLinkProps(res);
+                    setErrorMessage("");
+                }
+                }}>
                 <TextField
                     variant="filled"
                     sx={{backgroundColor: "white", width: "100%"}}
@@ -44,11 +51,14 @@ export default function NewLinkForm(){
                     </Button>
                 </div>
             </form>
-            {/*{ alias === "" && (*/}
-            {/*    <div>*/}
-            {/*        <p>${alias.toString()}</p>*/}
-            {/*    </div>*/}
-            {/*)}*/}
+            { (errorMessage !== "" || !linkProp)
+                ?(
+                    <div>{errorMessage}</div>
+                )
+                :<div>
+                    <a href={`${window.location.origin}/${linkProp.alias}`}>{`${window.location.origin}/${linkProp.alias}`}</a>
+                </div>
+            }
         </>
     )
 }
